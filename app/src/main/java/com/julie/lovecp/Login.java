@@ -126,7 +126,6 @@ public class Login extends AppCompatActivity {
                 editor.apply();
 
                 Intent i = new Intent(Login.this, First.class);
-//                i.putExtra("email", email);
                 startActivity(i);
                 finish();
             }
@@ -142,7 +141,6 @@ public class Login extends AppCompatActivity {
             editPasswd.setText(savedPassed);
             checkAutoLogin.setChecked(true);
         }
-
 
     }
 }

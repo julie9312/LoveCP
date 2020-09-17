@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top"
+    tools:context=".Papago">
+
+    <EditText
+        android:id="@+id/editBefore"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#CAAAAA"
+        android:hint="번역 전"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:src="@android:drawable/arrow_down_float" />
+
+    <TextView
+        android:id="@+id/txtAfter"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#7FC382"
+        android:hint="번역후"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp" />
+
+<!--    <RadioGroup-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/radioButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text = "english"/>-->
+<!--    </RadioGroup>-->
+
+    <Button
+        android:id="@+id/btnTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Trans"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

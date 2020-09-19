@@ -76,14 +76,14 @@ public class Papago extends AppCompatActivity {
                         Log.i("Papago","response : "+response);
 
                         try {
-                            jsonObject = new JSONObject(response);
-                            messageObject = jsonObject.getJSONObject("message");
-                            resultObject = messageObject.getJSONObject("result");
-                            String result = resultObject.getString("translatedText");
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject message = jsonObject.getJSONObject("message");
+                            JSONObject result = message.getJSONObject("result");
+                            String after = result.getString("translatedText");
 
-                            txtAfter.setText(result);
+                            txtAfter.setText(after);
 
-                            new_translations = new Translations(before, result);
+                            new_translations = new Translations(before, after);
                             Log.i("trans", new_translations.getAfter());
 
 

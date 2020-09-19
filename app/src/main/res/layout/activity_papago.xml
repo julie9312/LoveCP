@@ -60,9 +60,5 @@
         android:text="Trans"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </LinearLayout>

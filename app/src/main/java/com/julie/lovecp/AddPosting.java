@@ -1,5 +1,6 @@
 package com.julie.lovecp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -13,17 +14,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.julie.lovecp.data.DatabaseHandler;
+import com.julie.lovecp.model.Post;
 
 public class AddPosting extends AppCompatActivity {
 
 
-    Intent i;
-
     EditText editTitle;
-    EditText editPost;
+    EditText editBody;
     Button btnSave;
-
-    Post posts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class AddPosting extends AppCompatActivity {
         // 메뉴 주소(R.menu.~, menu) 설정을 이 액티비티 전용 menu_~.xml 로 바꿔주면 됨.
 
         editTitle = findViewById(R.id.editTitle);
-        editPost = findViewById(R.id.editPost);
+        editBody = findViewById(R.id.editBody);
         btnSave = findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -51,19 +49,18 @@ public class AddPosting extends AppCompatActivity {
             public void onClick(View view) {
 
                 String title = editTitle.getText().toString().trim();
-                String content = editPost.getText().toString().trim();
-
-
-                if(title.isEmpty() || content.isEmpty()){
-                    Toast.makeText(AddPosting.this,"데이터를 입력하세요",Toast.LENGTH_SHORT).show();
-                    return; // 리턴 까먹지마!!!!!!!!!!!!!!!!!!!!!!11
+                String body = editBody.getText().toString().trim();
+                if(title.isEmpty() || body.isEmpty()){
+                    Toast.makeText(AddPosting.this,
+                            "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 //저장
                 DatabaseHandler dh = new DatabaseHandler(AddPosting.this);
                 Post post = new Post();
                 post.setTitle(title);
-                post.setContent(content);
+                post.setBody(body);
                 dh.addPost(post);
 
                 // 잘 저장했다고 토스트
@@ -78,31 +75,17 @@ public class AddPosting extends AppCompatActivity {
         });
 
     }
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_add_posting, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        // 2. ★왼쪽에 만든 백버튼의 액션은 여기서 설정한다
-        // 왼쪽 백버튼 아이디 > android.R.id.home
         if (id == android.R.id.home) {
             finish();
+
             return true;
         }
 
-        if (id == R.id.menu_back) {
-            i = getIntent();
-            setResult(RESULT_CANCELED, i);
-            finish();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
+
     }
 }

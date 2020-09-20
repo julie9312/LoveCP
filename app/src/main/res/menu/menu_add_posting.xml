@@ -4,7 +4,7 @@
     tools:context="cox.tenisme.customalert.AddPosting">
     <item
         android:id="@+id/menu_back"
-        android:icon="@drawable/abc_vector_test"
+        android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="1"
         android:title="추가"
         app:showAsAction="ifRoom|withText" />

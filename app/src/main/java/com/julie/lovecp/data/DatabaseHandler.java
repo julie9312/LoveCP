@@ -1,7 +1,20 @@
 package com.julie.lovecp.data;
 
-import com.julie.lovecp.Post;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import com.julie.lovecp.AddPosting;
+import com.julie.lovecp.UpdatePosting;
+import com.julie.lovecp.model.Post;
 import com.julie.lovecp.utils.Utils;
+
+import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -16,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Utils.TABLE_NAME + "(" +
                 Utils.KEY_ID + " integer not null primary key autoincrement," +
                 Utils.KEY_TITLE + " text, " +
-                Utils.KEY_CONTENT + " text )";
+                Utils.KEY_BODY + " text )";
 
         // 2. 쿼리 실행
         db.execSQL(CREATE_MEMO_TABLE);
@@ -34,13 +47,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // 여기서부터는 기획에 맞게 데이터베이스에 넣고, 업데이트, 가져오고, 지우고
     // 메소드 만들기.
 
-    public void addMemo(Post post){
+    public void addPost(Post post){
         // 1. 저장하기 위해서, writable db 를 가져온다.
         SQLiteDatabase db = this.getWritableDatabase();
         // 2. db에 저장하기 위해서는, ContentValues를 이용한다.
         ContentValues values = new ContentValues();
         values.put(Utils.KEY_TITLE, post.getTitle());
-        values.put(Utils.KEY_CONTENT, post.getContent());
+        values.put(Utils.KEY_BODY , post.getBody());
         // 3. db에 실제로 저장한다.
         db.insert(Utils.TABLE_NAME, null, values);
         db.close();
@@ -55,7 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // select id, title, content from memo where id = 2;
         // 2. 데이터를 셀렉트(조회) 할때는, Cursor 를 이용해야 한다.
         Cursor cursor = db.query(Utils.TABLE_NAME,
-                new String[] {"id", "title", "content"},
+                new String[] {"id", "title", "body"},
                 Utils.KEY_ID + " = ? ",
                 new String[]{String.valueOf(id)},
                 null, null, null);
@@ -66,21 +79,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         int selectedId = Integer.parseInt(cursor.getString(0));
         String selectedTitle = cursor.getString(1);
-        String selectedContent = cursor.getString(2);
+        String selectedBody = cursor.getString(2);
 
         // db에서 읽어온 데이터를, 자바 클래스로 처리한다.
         Post post = new Post();
         post.setId(selectedId);
         post.setTitle(selectedTitle);
-        post.setContent(selectedContent);
+        post.setBody(selectedBody);
 
         return post;
     }
 
     // 전체 저장된 데이터 모두 가져오기.
-    public ArrayList<Post> getAllMemo(){
+    public ArrayList<Post> getAllPost(){
         // 1. 비어 있는 어레이 리스트를 먼저 한개 만든다.
-        ArrayList<Post> memoList = new ArrayList<>();
+        ArrayList<Post> postArrayList = new ArrayList<>();
 
         // 2. 데이터베이스에 select (조회) 해서,
         String selectAll = "select * from " + Utils.TABLE_NAME;
@@ -93,29 +106,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 int selectedId = Integer.parseInt(cursor.getString(0));
                 String selectedTitle = cursor.getString(1);
-                String selectedContent = cursor.getString(2);
+                String selectedBody = cursor.getString(2);
                 Log.i("myDB", "do while : " + selectedTitle);
                 // db에서 읽어온 데이터를, 자바 클래스로 처리한다.
                 Post post = new Post();
                 post.setId(selectedId);
                 post.setTitle(selectedTitle);
-                post.setContent(selectedContent);
+                post.setBody(selectedBody);
 
                 // 4. 위의 빈 어레이리스트에 하나씩 추가를 시킨다.
-                memoList.add(post);
+                postArrayList.add(post);
 
             }while(cursor.moveToNext());
         }
-        return memoList;
+        return postArrayList;
     }
 
     // 데이터를 업데이트 하는 메서드.
-    public int updateMemo(Post post){
+    public int updatePost(Post post){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(Utils.KEY_TITLE, post.getTitle());
-        values.put(Utils.KEY_CONTENT, post.getContent());
+        values.put(Utils.KEY_BODY, post.getBody());
 
         // 데이터베이스 테이블 업데이트.
         // update memo set title="홍길동", content="asdfasdf" where id = 3;
@@ -128,7 +141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // 데이터 삭제 메서드
-    public void deleteMemo(Post post){
+    public void deletePost(Post post){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Utils.TABLE_NAME,  // 테이블 명
                 Utils.KEY_ID + " = ?",   // where id = ?
@@ -145,33 +158,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int count = cursor.getCount();
         db.close();
         return count;
-    }
-
-    // 검색용 메소드 추가
-    public ArrayList<Post> search(String keyword){
-        String searchQuery = "select id, title, content from "+Utils.TABLE_NAME+
-                " where content like ? or title like ? ";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(searchQuery, new String[]{"%"+keyword+"%", "%"+keyword+"%"} );
-        ArrayList<Post> postArrayList = new ArrayList<>();
-        if(cursor.moveToFirst()){
-            do {
-                int selectedId = Integer.parseInt(cursor.getString(0));
-                String selectedTitle = cursor.getString(1);
-                String selectedContent = cursor.getString(2);
-                Log.i("myDB", "do while : " + selectedTitle);
-                // db에서 읽어온 데이터를, 자바 클래스로 처리한다.
-                Post post = new Post();
-                post.setId(selectedId);
-                post.setTitle(selectedTitle);
-                post.setContent(selectedContent);
-
-                // 4. 위의 빈 어레이리스트에 하나씩 추가를 시킨다.
-                postArrayList.add(post);
-
-            }while(cursor.moveToNext());
-        }
-        return postArrayList;
     }
 
 

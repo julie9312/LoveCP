@@ -2,20 +2,20 @@ package com.julie.lovecp.model;
 
 import java.io.Serializable;
 
-public class Post {
+public class Post implements Serializable {
 
     private int id;
     private String title;
-    private String content;
+    private String body;
 
-    public Post(){
+    public Post() {
 
     }
 
-    public Post(int id, String title, String content) {
+    public Post(int id, String title, String body) {
         this.id = id;
         this.title = title;
-        this.content = content;
+        this.body = body;
     }
 
     public int getId() {
@@ -34,11 +34,11 @@ public class Post {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getBody() {
+        return body;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBody(String body) {
+        this.body = body;
     }
 }

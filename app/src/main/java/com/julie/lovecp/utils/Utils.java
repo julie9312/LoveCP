@@ -18,6 +18,6 @@ public class Utils {
     // 컬럼 이름 : 컬럼명은 String
     public static final String KEY_ID = "id";
     public static final String KEY_TITLE = "title";
-    public static final String KEY_CONTENT = "content";
+    public static final String KEY_BODY = "body";
 
 }

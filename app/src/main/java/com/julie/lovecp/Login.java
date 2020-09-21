@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -50,7 +51,7 @@ public class Login extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         checkAutoLogin = findViewById(R.id.checkAutoLogin);
 
-        sp = getSharedPreferences("regist_pref", MODE_PRIVATE);
+        sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
         editor = sp.edit();
         savedEmail = sp.getString("email", null);
         savedPassed = sp.getString("passwd", null);
@@ -94,7 +95,8 @@ public class Login extends AppCompatActivity {
 
                                 try {
                                     String token = response.getString("token");
-                                    SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+                                    Log.i("tata", token);
+                                    SharedPreferences sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sp.edit();
                                     editor.putString("token", token);
                                     editor.apply();

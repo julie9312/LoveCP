@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -35,14 +36,13 @@ public class First extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
-    TextView btnA;
+    Button btnA;
+    Button btnB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        CheckTypesTask task = new CheckTypesTask();
-        task.execute();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(First.this));
@@ -53,7 +53,15 @@ public class First extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(First.this, Papago.class);
                 startActivity(i);
-                finish();
+            }
+        });
+
+        btnB = findViewById(R.id.btnB);
+        btnB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(First.this, Post_Main.class);
+                startActivity(i);
             }
         });
 
@@ -102,41 +110,5 @@ public class First extends AppCompatActivity {
         );
         requestQueue.add(jsonObjectRequest);
     }
-    private  class CheckTypesTask extends AsyncTask<Void, Integer, Boolean> {
-        ProgressDialog asyncDialog = new ProgressDialog(First.this);
 
-        @Override
-        protected void onPreExecute(){
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로딩중..");
-            asyncDialog.show();
-            asyncDialog.setCancelable(false);
-            super.onPreExecute();
-        }
-        @Override
-        protected Boolean doInBackground(Void... strings){
-
-            for(int i = 0; i<10000; i++){
-                publishProgress(i);
-
-
-            }
-            return true;
-
-        }
-
-        @Override
-        protected void onPostExecute(Boolean s){
-
-            asyncDialog.dismiss();
-            super.onPostExecute(s);
-        }
-
-
-        @Override
-        protected void onCancelled(Boolean s){
-            super.onCancelled(s);
-        }
-
-    }
 }

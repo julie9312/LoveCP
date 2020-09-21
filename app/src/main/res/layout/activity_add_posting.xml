@@ -6,20 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/TextAppearance.AppCompat.Title"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-             />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
         android:id="@+id/editTitle"
@@ -30,7 +16,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
-        android:hint="제목"
+        android:hint="title"
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +25,7 @@
 
 
     <EditText
-        android:id="@+id/editPost"
+        android:id="@+id/editBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -47,7 +33,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
-        android:hint="내용"
+        android:hint="body"
         android:inputType="textMultiLine"
         android:maxLines="10"
         android:minLines="1"
@@ -68,7 +54,6 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editPost" />
-
+        app:layout_constraintTop_toBottomOf="@id/editBody" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-        SharedPreferences sp = getSharedPreferences("regist_pref", MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
         String token = sp.getString("token", null);
+        Log.i("baba", token);
         if(token != null){
+            Log.i("baba", token);
             Intent i = new Intent(MainActivity.this, First.class);
             startActivity(i);
             finish();

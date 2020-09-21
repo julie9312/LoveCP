@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-
-import com.julie.lovecp.AddPosting;
-import com.julie.lovecp.UpdatePosting;
 import com.julie.lovecp.model.Post;
 import com.julie.lovecp.utils.Utils;
 

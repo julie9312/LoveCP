@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,6 +25,9 @@ import com.julie.lovecp.utils.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Register extends AppCompatActivity {
 
     EditText editEmail;
@@ -33,23 +37,34 @@ public class Register extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
-
     private String token;
     private AlertDialog.Builder finishAlert;
 
-
+    String path = "/api/v1/users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        requestQueue = Volley.newRequestQueue(Register.this);
-
         editEmail = findViewById(R.id.editEmail);
         editPasswd1 = findViewById(R.id.editPasswd1);
         editPasswd2 = findViewById(R.id.editPasswd2);
         btnRegister = findViewById(R.id.btnRegister);
+
+        requestQueue = Volley.newRequestQueue(Register.this);
+
+        SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+        token = sp.getString("token", null);
+
+        if (token != null) {
+            path = "/api/v1/users/auth";
+        } else {
+            path = "/api/v1/users";
+            Log.i("path", path);
+            return;
+        }
+        getNetworkData(path);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,14 +122,14 @@ public class Register extends AppCompatActivity {
                                     public void onResponse(JSONObject response) {
                                         try {
                                             String token = response.getString("token");
-                                            Log.i("AAA", "networktoken : " +token);
+                                            Log.i("AAA", "networktoken : " + token);
                                             SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sp.edit();
                                             editor.putString("token", token);
                                             editor.apply();
 
                                             Intent i = new Intent(Register.this, Login.class);
-                                            i.putExtra("token",token);
+                                            i.putExtra("token", token);
                                             startActivity(i);
                                             finish();
 
@@ -131,9 +146,11 @@ public class Register extends AppCompatActivity {
                                     }
                                 }
                         );
-                        Volley.newRequestQueue(Register.this).add(request);
+                        requestQueue.add(request);
                     }
                 });
+
+
                 finishAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
@@ -147,4 +164,56 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
+    private void getNetworkData(String path) {
+        Log.i("BBB", Utils.BASE_URL + path);
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST,
+                Utils.BASE_URL + "/api/v1/users",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            boolean success = response.getBoolean("success");
+                            if(success == false) {
+                                // 유저한테 에러있다고 알리고 리턴.
+                                return;
+                            }
+                            String token = response.getString("token");
+                            Log.i("CCC", "networktoken : " + token);
+                            SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("token", token);
+                            editor.apply();
+
+                            Intent i = new Intent(Register.this, Login.class);
+                            i.putExtra("token", token);
+                            startActivity(i);
+                            finish();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "Bearer " + token);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(Register.this).add(request);
+    }
 }
+
+

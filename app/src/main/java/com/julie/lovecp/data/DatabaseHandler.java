@@ -15,6 +15,12 @@ import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    private static SQLiteDatabase sqliteDb;
+
+    private static DatabaseHandler instance;
+
+    private static final int DATABASE_VERSION = 1;
+
     public DatabaseHandler(@Nullable Context context) {
         super(context, Utils.DATABASE_NAME, null, Utils.DATABASE_VERSION);
     }

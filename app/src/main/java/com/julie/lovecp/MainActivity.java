@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
         String token = sp.getString("token", null);
         Log.i("baba", token);
-        if(token != null){
-            Log.i("baba", token);
-            Intent i = new Intent(MainActivity.this, First.class);
-            startActivity(i);
-            finish();
-
-        }
+//        if(token != null){
+//            Log.i("baba", token);
+//            Intent i = new Intent(MainActivity.this, First.class);
+//            startActivity(i);
+//            finish();
+//
+//        }
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {

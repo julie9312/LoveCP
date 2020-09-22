@@ -7,13 +7,6 @@
     android:orientation="vertical"
     tools:context=".First">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="News"
-        android:textSize="30sp" />
 
     <Button
         android:id="@+id/btnA"
@@ -26,6 +19,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MEMO" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그아웃" />
+
+    <Button
+        android:id="@+id/btnC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그인" />
+
+    <Button
+        android:id="@+id/btnD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원가입" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

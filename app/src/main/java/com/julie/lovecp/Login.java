@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -40,6 +41,8 @@ public class Login extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
+    RequestQueue requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,8 @@ public class Login extends AppCompatActivity {
         editor = sp.edit();
         savedEmail = sp.getString("email", null);
         savedPassed = sp.getString("passwd", null);
+
+        requestQueue = Volley.newRequestQueue(Login.this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +123,7 @@ public class Login extends AppCompatActivity {
                         }
                 );
                 Volley.newRequestQueue(Login.this).add(request);
+
                 if(checkAutoLogin.isChecked()){
 
                     editor.putBoolean("auto_login", true);
@@ -132,6 +138,15 @@ public class Login extends AppCompatActivity {
                 finish();
             }
 
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this, Register.class);
+                startActivity(i);
+                finish();
+            }
         });
 
         //1. 자동로그인이 쉐어드프리퍼런스에 저장되어 있는지 정보 확인.

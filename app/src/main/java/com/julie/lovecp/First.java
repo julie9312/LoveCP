@@ -38,6 +38,9 @@ public class First extends AppCompatActivity {
 
     Button btnA;
     Button btnB;
+    Button btnC;
+    Button btnD;
+    Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,33 @@ public class First extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(First.this, Post_Main.class);
+                startActivity(i);
+            }
+        });
+
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(First.this, AfterLogin.class);
+                startActivity(i);
+            }
+        });
+
+        btnC = findViewById(R.id.btnC);
+        btnC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(First.this, Login.class);
+                startActivity(i);
+            }
+        });
+
+        btnD = findViewById(R.id.btnD);
+        btnD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(First.this, MainActivity.class);
                 startActivity(i);
             }
         });

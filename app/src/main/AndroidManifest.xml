@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UpdatePosting"></activity>
+        <activity android:name=".AfterLogin"></activity>
+        <activity android:name=".UpdatePosting" />
         <activity android:name=".AddPosting" />
         <activity android:name=".Post_Main" />
         <activity android:name=".Papago" />

@@ -1,6 +1,6 @@
 package com.julie.lovecp;
 
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,14 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -85,6 +84,7 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
                                 startActivity(i);
                                 finish();
                             }else {
+                                Log.i("error", "ERROR : " + toString());
                                 Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -99,7 +99,7 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(AfterLogin.this,"로그아웃실패2", Toast.LENGTH_SHORT).show();
-                        Log.i("error", "ERROR : " + error.toString());
+                        Log.i("error2", "ERROR : " + error.toString());
                         return;
                     }
                 }

@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,8 +39,6 @@ public class First extends AppCompatActivity {
 
     Button btnA;
     Button btnB;
-    Button btnC;
-    Button btnD;
     Button btnLogout;
 
     @Override
@@ -74,26 +73,10 @@ public class First extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(First.this, AfterLogin.class);
                 startActivity(i);
+                finish();
             }
         });
 
-        btnC = findViewById(R.id.btnC);
-        btnC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(First.this, Login.class);
-                startActivity(i);
-            }
-        });
-
-        btnD = findViewById(R.id.btnD);
-        btnD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(First.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
 
         requestQueue = Volley.newRequestQueue(First.this);
 
@@ -104,28 +87,27 @@ public class First extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.i("AAA", response.toString());
 
-                        try {
-                            JSONArray articles = response.getJSONArray("articles");
+                            try {
+                                JSONArray articles = response.getJSONArray("articles");
 
-                            for(int i = 0; i < articles.length(); i++){
-                                JSONObject jsonObject = articles.getJSONObject(i);
-                                String author = jsonObject.getString("author");
-                                String title = jsonObject.getString("title");
-                                String desc = jsonObject.getString("description");
-                                String url = jsonObject.getString("url");
-                                String urlToImage = jsonObject.getString("urlToImage");
-                                String publishedAt = jsonObject.getString("publishedAt");
+                                for (int i = 0; i < articles.length(); i++) {
+                                    JSONObject jsonObject = articles.getJSONObject(i);
+                                    String author = jsonObject.getString("author");
+                                    String title = jsonObject.getString("title");
+                                    String desc = jsonObject.getString("description");
+                                    String url = jsonObject.getString("url");
+                                    String urlToImage = jsonObject.getString("urlToImage");
+                                    String publishedAt = jsonObject.getString("publishedAt");
 
-                                News news = new News(author, title, desc, url, urlToImage, publishedAt);
-                                newsArrayList.add(news);
+                                    News news = new News(author, title, desc, url, urlToImage, publishedAt);
+                                    newsArrayList.add(news);
+                                }
+                                recyclerViewAdapter = new RecyclerViewAdapter(First.this, newsArrayList);
+                                recyclerView.setAdapter(recyclerViewAdapter);
 
-                            }
-                            recyclerViewAdapter = new RecyclerViewAdapter(
-                                    First.this, newsArrayList);
-                            recyclerView.setAdapter(recyclerViewAdapter);
-
-                        } catch (JSONException e) {
+                        } catch(JSONException e){
                             e.printStackTrace();
                         }
 

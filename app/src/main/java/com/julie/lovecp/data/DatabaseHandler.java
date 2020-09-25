@@ -15,12 +15,6 @@ import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static SQLiteDatabase sqliteDb;
-
-    private static DatabaseHandler instance;
-
-    private static final int DATABASE_VERSION = 1;
-
     public DatabaseHandler(@Nullable Context context) {
         super(context, Utils.DATABASE_NAME, null, Utils.DATABASE_VERSION);
     }
@@ -29,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // 1. 테이블 생성문 SQLite 문법에 맞게 작성해야 한다.
         String CREATE_MEMO_TABLE = "create table " +
-                Utils.TABLE_NAME + "(" +
+                Utils.TABLE_NAME2 + "(" +
                 Utils.KEY_ID + " integer not null primary key autoincrement," +
                 Utils.KEY_TITLE + " text, " +
                 Utils.KEY_BODY + " text )";
@@ -40,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String DROP_TABLE = "drop table " + Utils.TABLE_NAME;
+        String DROP_TABLE = "drop table " + Utils.TABLE_NAME2;
         db.execSQL(DROP_TABLE);
 
         // 테이블 새로 다시 생성.
@@ -58,19 +52,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(Utils.KEY_TITLE, post.getTitle());
         values.put(Utils.KEY_BODY , post.getBody());
         // 3. db에 실제로 저장한다.
-        db.insert(Utils.TABLE_NAME, null, values);
+        db.insert(Utils.TABLE_NAME2, null, values);
         db.close();
         Log.i("myDB", "inserted.");
     }
 
     // 메모1개 불러오는 메소드
-    public Post getPost(int id){
+    public Post getAllPost(int id){
         // 1. 데이터베이스 가져온다. 조회니까, readable 한 db로 가져온다.
         SQLiteDatabase db = this.getReadableDatabase();
 
         // select id, title, content from memo where id = 2;
         // 2. 데이터를 셀렉트(조회) 할때는, Cursor 를 이용해야 한다.
-        Cursor cursor = db.query(Utils.TABLE_NAME,
+        Cursor cursor = db.query(Utils.TABLE_NAME2,
                 new String[] {"id", "title", "body"},
                 Utils.KEY_ID + " = ? ",
                 new String[]{String.valueOf(id)},
@@ -99,7 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Post> postArrayList = new ArrayList<>();
 
         // 2. 데이터베이스에 select (조회) 해서,
-        String selectAll = "select * from " + Utils.TABLE_NAME;
+        String selectAll = "select * from " + Utils.TABLE_NAME2;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectAll, null);
 
@@ -135,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // 데이터베이스 테이블 업데이트.
         // update memo set title="홍길동", content="asdfasdf" where id = 3;
-        int ret = db.update(Utils.TABLE_NAME,    // 테이블명
+        int ret = db.update(Utils.TABLE_NAME2,    // 테이블명
                 values,     // 업데이트할 값
                 Utils.KEY_ID + " = ? ",   // where
                 new String[]{String.valueOf(post.getId())}); // ? 에 들어갈 값
@@ -146,7 +140,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // 데이터 삭제 메서드
     public void deletePost(Post post){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Utils.TABLE_NAME,  // 테이블 명
+        db.delete(Utils.TABLE_NAME2,  // 테이블 명
                 Utils.KEY_ID + " = ?",   // where id = ?
                 new String[]{String.valueOf(post.getId())});  // ? 에 해당하는 값.
         db.close();
@@ -155,7 +149,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // 테이블에 저장된 데이터의 전체 갯수를 리턴하는 메소드.
     public int getCount(){
         // select count(*) from memo;
-        String countQuery = "select * from " + Utils.TABLE_NAME;
+        String countQuery = "select * from " + Utils.TABLE_NAME2;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         int count = cursor.getCount();

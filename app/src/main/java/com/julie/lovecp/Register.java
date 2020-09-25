@@ -40,7 +40,6 @@ public class Register extends AppCompatActivity {
     private String token;
     private AlertDialog.Builder finishAlert;
 
-    String path = "/api/v1/users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +52,6 @@ public class Register extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
 
         requestQueue = Volley.newRequestQueue(Register.this);
-
-        SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
-        token = sp.getString("token", null);
-
-        if (token != null) {
-            path = "/api/v1/users/auth";
-        } else {
-            path = "/api/v1/users";
-            Log.i("path", path);
-            return;
-        }
-        getNetworkData(path);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +133,7 @@ public class Register extends AppCompatActivity {
                                     }
                                 }
                         );
-                        requestQueue.add(request);
+                        Volley.newRequestQueue(Register.this).add(request);
                     }
                 });
 
@@ -165,55 +152,6 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    private void getNetworkData(String path) {
-        Log.i("BBB", Utils.BASE_URL + path);
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.POST,
-                Utils.BASE_URL + "/api/v1/users",
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            boolean success = response.getBoolean("success");
-                            if(success == false) {
-                                // 유저한테 에러있다고 알리고 리턴.
-                                return;
-                            }
-                            String token = response.getString("token");
-                            Log.i("CCC", "networktoken : " + token);
-                            SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putString("token", token);
-                            editor.apply();
-
-                            Intent i = new Intent(Register.this, Login.class);
-                            i.putExtra("token", token);
-                            startActivity(i);
-                            finish();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "Bearer " + token);
-                return params;
-            }
-        };
-        Volley.newRequestQueue(Register.this).add(request);
-    }
 }
 
 

@@ -8,37 +8,40 @@
     tools:context=".First">
 
 
-    <Button
-        android:id="@+id/btnA"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Papago" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnA"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Papago"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MEMO" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="로그아웃" />
-
-    <Button
-        android:id="@+id/btnC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="로그인" />
-
-    <Button
-        android:id="@+id/btnD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="회원가입" />
+        <Button
+            android:id="@+id/btnB"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MEMO"
+            android:textStyle="bold" />
 
 
+        <Button
+            android:id="@+id/btnLogout"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Logout"
+            android:textStyle="bold" />
+
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

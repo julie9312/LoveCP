@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,8 +30,9 @@ import java.util.Map;
 
 public class AfterLogin extends AppCompatActivity implements View.OnClickListener{
 
-    String token;
+    TextView txtValue;
     Button btnLogout2;
+    String token;
     String query = "";
     RequestQueue requestQueue;
 
@@ -39,6 +41,7 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_login);
 
+        txtValue = findViewById(R.id.txtValue);
         btnLogout2 = findViewById(R.id.btnLogout2);
 
         SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
@@ -118,7 +121,7 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent i = new Intent(AfterLogin.this, Login.class);
+        Intent i = new Intent(AfterLogin.this, First.class);
         startActivity(i);
         finish();
     }

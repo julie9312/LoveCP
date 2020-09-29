@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UpdatePosting"></activity>
+        <activity android:name=".UpdatePosting" android:screenOrientation="portrait"></activity>
         <activity android:name=".AddPosting" android:screenOrientation="portrait" />
         <activity android:name=".AfterLogin" android:screenOrientation="portrait"/>
         <activity android:name=".Post_Main" android:screenOrientation="portrait"/>

@@ -16,13 +16,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
+
 import com.android.volley.toolbox.Volley;
-import com.julie.lovecp.adapter.RecyclerViewAdapter;
+
 import com.julie.lovecp.adapter.RecyclerViewAdapter2;
-import com.julie.lovecp.model.News;
+
 import com.julie.lovecp.model.Post;
 import com.julie.lovecp.utils.Utils;
 
@@ -43,7 +43,6 @@ public class Post_Main extends AppCompatActivity {
     RequestQueue requestQueue;
 
     Button btnCreate;
-    Button btnSync;
 
     //페이징처리를위한변수
     int offset=0;
@@ -67,7 +66,6 @@ public class Post_Main extends AppCompatActivity {
             }
         });
 
-        btnSync = findViewById(R.id.btnSync);
 
         recyclerView2 = findViewById(R.id.recyclerView2);
         recyclerView2.setHasFixedSize(true);
@@ -94,18 +92,15 @@ public class Post_Main extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
         token = sp.getString("token", null);
 
-//        if(token != null){
+        if(token != null){
             path = "/api/v1/posts/me";
-//        }else{
-//            path = "/api/v1/posts";
-//        }
+        }else{
+         return;
+        }
 
         getNetworkData(path);
 
-
     }
-
-
 
     private void getNetworkData(String path) {
 
@@ -215,7 +210,7 @@ public class Post_Main extends AppCompatActivity {
 
     }
 
-    public void deletePost(int index){
+    public void deletePost(final int index){
         Post post = postArrayList.get(index);
         final int id = post.getId();
 
@@ -242,8 +237,11 @@ public class Post_Main extends AppCompatActivity {
                             editor.putString("token", token);
                             editor.apply();
 
+                            // 완료되면, postArrayList.remove(index);
+                            // adapter 노티파이.
+
                             Post post = new Post();
-                            postArrayList.remove(post);
+                            postArrayList.remove(index);
 
                             recyclerViewAdapter2.notifyDataSetChanged();
 
@@ -273,12 +271,6 @@ public class Post_Main extends AppCompatActivity {
         };
 
         Volley.newRequestQueue(Post_Main.this).add(request);
-
-
-
-        // 완료되면, postArrayList.remove(index);
-        // adapter 노티파이.
-
 
     }
 

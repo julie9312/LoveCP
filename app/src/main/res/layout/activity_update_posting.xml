@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editBody"
+        android:id="@+id/editContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
@@ -62,5 +62,5 @@
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBody" />
+        app:layout_constraintTop_toBottomOf="@+id/editContent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

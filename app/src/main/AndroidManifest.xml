@@ -15,14 +15,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".UpdatePosting"></activity>
-        <activity android:name=".AddPosting" />
-        <activity android:name=".AfterLogin"/>
-        <activity android:name=".Post_Main" />
-        <activity android:name=".Papago" />
-        <activity android:name=".First" />
-        <activity android:name=".Login" />
-        <activity android:name=".Register" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".AddPosting" android:screenOrientation="portrait" />
+        <activity android:name=".AfterLogin" android:screenOrientation="portrait"/>
+        <activity android:name=".Post_Main" android:screenOrientation="portrait"/>
+        <activity android:name=".Papago" android:screenOrientation="portrait"/>
+        <activity android:name=".First" android:screenOrientation="portrait"/>
+        <activity android:name=".Login" android:screenOrientation="portrait"/>
+        <activity android:name=".Register" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +16,26 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.julie.lovecp.AddPosting;
+import com.julie.lovecp.MainActivity;
+import com.julie.lovecp.Post_Main;
 import com.julie.lovecp.R;
 import com.julie.lovecp.UpdatePosting;
-import com.julie.lovecp.data.DatabaseHandler;
 import com.julie.lovecp.model.Post;
+import com.julie.lovecp.utils.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapter2.ViewHolder> {
@@ -45,10 +60,10 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
         Post post = postArrayList.get(position);
 
         String title = post.getTitle();
-        String body = post.getBody();
+        String content = post.getContent();
 
         holder.txtTitle.setText(title);
-        holder.txtBody.setText(body);
+        holder.txtContent.setText(content);
     }
 
     @Override
@@ -59,14 +74,14 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView txtTitle;
-        public TextView txtBody;
+        public TextView txtContent;
         public ImageView imgDelete;
         public CardView cardView2;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txtTitle);
-            txtBody = itemView.findViewById(R.id.txtBody);
+            txtContent = itemView.findViewById(R.id.txtContent);
             imgDelete = itemView.findViewById(R.id.imgDelete);
             cardView2 = itemView.findViewById(R.id.cardView2);
             cardView2.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +92,12 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                     Post post = postArrayList.get(index);
                     int id = post.getId();
                     String title = post.getTitle();
-                    String body = post.getBody();
+                    String content = post.getContent();
 
                     Intent i = new Intent(context, UpdatePosting.class);
                     i.putExtra("id", id);
                     i.putExtra("title", title);
-                    i.putExtra("body", body);
+                    i.putExtra("content", content);
                     context.startActivity(i);
                 }
             });
@@ -98,18 +113,15 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                         @Override
                         public void onClick(DialogInterface dialogInterface, int which) {
                             int index = getAdapterPosition();
-                            Post post = postArrayList.get(index);
-                            DatabaseHandler dh = new DatabaseHandler(context);
-                            dh.deletePost(post);
 
-                            postArrayList = dh.getAllPost();
+                            ((Post_Main)context).deletePost(index);
+                            postArrayList.remove(index);
                             notifyDataSetChanged();
                         }
                     });
                     deleteAlert.setNegativeButton("NO", null);
                     deleteAlert.setCancelable(false);
                     deleteAlert.show();
-
 
                 }
             });

@@ -6,16 +6,16 @@ public class Post implements Serializable {
 
     private int id;
     private String title;
-    private String body;
+    private String content;
 
-    public Post() {
+    public Post(){
 
     }
 
-    public Post(int id, String title, String body) {
+    public Post(int id, String title, String content) {
         this.id = id;
         this.title = title;
-        this.body = body;
+        this.content = content;
     }
 
     public int getId() {
@@ -34,11 +34,11 @@ public class Post implements Serializable {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

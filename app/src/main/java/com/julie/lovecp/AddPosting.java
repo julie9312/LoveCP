@@ -18,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.julie.lovecp.data.DatabaseHandler;
 import com.julie.lovecp.model.Post;
 import com.julie.lovecp.utils.Utils;
 
@@ -34,33 +33,27 @@ public class AddPosting extends AppCompatActivity {
 
     RequestQueue requestQueue;
     EditText editTitle;
-    EditText editBody;
+    EditText editContent;
     Button btnSave;
 
     String token;
     String path = "/api/v1/posts";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_posting);
 
+        requestQueue = Volley.newRequestQueue(AddPosting.this);
+
         SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
         token = sp.getString("token", null);
 
-        if (token != null) {
-            path = "/api/v1/posts/auth";
-        } else {
-            path = "/api/v1/posts";
-        }
 
         editTitle = findViewById(R.id.editTitle);
-        editBody = findViewById(R.id.editBody);
+        editContent = findViewById(R.id.editContent);
         btnSave = findViewById(R.id.btnSave);
-
-        requestQueue = Volley.newRequestQueue(AddPosting.this);
-
-
 
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -68,27 +61,65 @@ public class AddPosting extends AppCompatActivity {
             public void onClick(View view) {
 
                 String title = editTitle.getText().toString().trim();
-                String body = editBody.getText().toString().trim();
-                if (title.isEmpty() || body.isEmpty()) {
+                String content = editContent.getText().toString().trim();
+                if (title.isEmpty() || content.isEmpty()) {
                     Toast.makeText(AddPosting.this,
                             "데이터를 입력하세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                JSONObject body = new JSONObject();
+                try {
+                    body.put("title", title);
+                    body.put("content", content);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                //저장
-                DatabaseHandler dh = new DatabaseHandler(AddPosting.this);
-                Post post = new Post();
-                post.setTitle(title);
-                post.setBody(body);
-                dh.addPost(post);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+                        Utils.BASE_URL + path, body,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                try {
+                                    String token = response.getString("token");
+                                    Log.i("AAA" , "network token : " +token);
+                                    SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putString("token", token);
+                                    editor.apply();
+
+                                    finish();
+                                    return;
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.i("test",error+"");
+                            }
+                        }
+                        )
+                        {
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("Authorization", "Bearer "+token);
+                                return params;
+                            }
+                        };
+                Volley.newRequestQueue(AddPosting.this).add(request);
+
 
                 // 잘 저장했다고 토스트
                 Toast.makeText(AddPosting.this, "잘 저장되었습니다.",
                         Toast.LENGTH_SHORT).show();
 
-                // 잘 저장했다고 토스트
-                Toast.makeText(AddPosting.this, "잘 저장되었습니다.",
-                        Toast.LENGTH_SHORT).show();
 
                 // 메인액티비티 다시 보이도록
                 Intent i = new Intent(AddPosting.this, Post_Main.class);

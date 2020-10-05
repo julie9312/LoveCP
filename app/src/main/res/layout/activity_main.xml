@@ -32,7 +32,9 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
-        android:text="회원가입" />
+        android:backgroundTint="#957A7A"
+        android:text="회원가입"
+        android:textColor="#6A3737" />
 
     <Button
         android:id="@+id/btnStart"

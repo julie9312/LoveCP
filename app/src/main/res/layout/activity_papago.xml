@@ -8,6 +8,15 @@
     android:gravity="top"
     tools:context=".Papago">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Translator"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
     <EditText
         android:id="@+id/editBefore"
         android:layout_width="match_parent"

@@ -6,16 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top"
-    tools:context=".Papago">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Translator"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="visible" />
+    tools:context=".Papago"
+    android:background="@drawable/roses">
 
     <EditText
         android:id="@+id/editBefore"
@@ -23,17 +15,19 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:background="#CAAAAA"
-        android:hint="번역 전"
+        android:layout_marginTop="30dp"
+        android:background="#E0F8F7"
+        android:hint="Before"
         android:inputType="textPersonName"
         android:padding="10dp"
+        android:singleLine="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:src="@android:drawable/arrow_down_float" />
 
     <TextView
@@ -43,23 +37,11 @@
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:background="#7FC382"
-        android:hint="번역후"
+        android:hint="After"
         android:inputType="textPersonName"
         android:padding="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="16sp" />
-
-<!--    <RadioGroup-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <RadioButton-->
-<!--            android:id="@+id/radioButton"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text = "english"/>-->
-<!--    </RadioGroup>-->
 
     <Button
         android:id="@+id/btnTrans"
@@ -67,7 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Trans"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:background="@drawable/custom_button"/>
 
 
 </LinearLayout>

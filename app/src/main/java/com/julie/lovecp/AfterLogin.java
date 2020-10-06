@@ -85,7 +85,6 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
 
                                 Intent i = new Intent(AfterLogin.this, Login.class);
                                 startActivity(i);
-                                finish();
                             }else {
                                 Log.i("error", "ERROR : " + toString());
                                 Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
@@ -117,12 +116,4 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
         Volley.newRequestQueue(AfterLogin.this).add(jsonObjectRequest);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent i = new Intent(AfterLogin.this, First.class);
-        startActivity(i);
-        finish();
-    }
 }

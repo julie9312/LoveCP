@@ -14,15 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UpdatePosting" android:screenOrientation="portrait"></activity>
-        <activity android:name=".AddPosting" android:screenOrientation="portrait" />
-        <activity android:name=".AfterLogin" android:screenOrientation="portrait"/>
-        <activity android:name=".Post_Main" android:screenOrientation="portrait"/>
-        <activity android:name=".Papago" android:screenOrientation="portrait"/>
+        <activity android:name=".UpdatePosting" android:screenOrientation="portrait" android:parentActivityName=".Post_Main"></activity>
+        <activity android:name=".AddPosting" android:screenOrientation="portrait" android:parentActivityName=".Post_Main"/>
+        <activity android:name=".AfterLogin" android:screenOrientation="portrait" android:parentActivityName=".First"/>
+        <activity android:name=".Post_Main" android:screenOrientation="portrait" android:parentActivityName=".First"/>
+        <activity android:name=".Papago" android:screenOrientation="portrait" android:parentActivityName=".First"/>
         <activity android:name=".First" android:screenOrientation="portrait"/>
-        <activity android:name=".Login" android:screenOrientation="portrait"/>
-        <activity android:name=".Register" android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".Login" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Register" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

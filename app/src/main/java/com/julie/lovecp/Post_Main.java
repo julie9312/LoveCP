@@ -62,7 +62,6 @@ public class Post_Main extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(Post_Main.this, AddPosting.class);
                 startActivity(i);
-                finish();
             }
         });
 

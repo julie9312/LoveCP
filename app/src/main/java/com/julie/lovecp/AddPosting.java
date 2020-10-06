@@ -104,8 +104,7 @@ public class AddPosting extends AppCompatActivity {
                                 Log.i("test",error+"");
                             }
                         }
-                        )
-                        {
+                        ){
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
@@ -114,13 +113,9 @@ public class AddPosting extends AppCompatActivity {
                             }
                         };
                 Volley.newRequestQueue(AddPosting.this).add(request);
-
-
                 // 잘 저장했다고 토스트
                 Toast.makeText(AddPosting.this, "잘 저장되었습니다.",
                         Toast.LENGTH_SHORT).show();
-
-
                 // 메인액티비티 다시 보이도록
                 Intent i = new Intent(AddPosting.this, Post_Main.class);
                 startActivity(i);

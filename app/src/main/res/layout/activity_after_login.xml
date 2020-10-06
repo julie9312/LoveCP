@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AfterLogin">
+    tools:context=".AfterLogin"
+    android:background="@drawable/pinkwall">
 
     <TextView
         android:id="@+id/txtValue"
@@ -25,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="로그아웃"
+        android:textColor="#000000"
+        android:background="@drawable/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Register">
+    tools:context=".Register"
+    android:background="@drawable/book">
 
     <TextView
         android:id="@+id/textView"
@@ -80,8 +81,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:text="REGISTER"
-            style="?attr/materialButtonOutlinedStyle"/>
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:text="SIGN IN"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:background="@drawable/custom_button"/>
     </LinearLayout>
 </LinearLayout>

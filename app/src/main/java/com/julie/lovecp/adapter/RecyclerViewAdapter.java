@@ -80,18 +80,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView txtAuthor;
         public TextView txtPublishedAt;
 
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtDesc = itemView.findViewById(R.id.txtDesc);
             img = itemView.findViewById(R.id.img);
             txtAuthor = itemView.findViewById(R.id.txtAuthor);
             txtPublishedAt = itemView.findViewById(R.id.txtPublishedAt);
-
-
 
         }
     }

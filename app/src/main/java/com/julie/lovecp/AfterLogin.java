@@ -73,7 +73,6 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
 //                        String token = response.getString("token");
 //                        String user_id = response.getString("user_id");
 
-
                         try {
                             boolean success = response.getBoolean("success");
                             if(success){
@@ -82,9 +81,10 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("token", null);
                             editor.apply();
+                            Intent i = new Intent(AfterLogin.this, Login.class);
+                            startActivity(i);
+                            finish();
 
-                                Intent i = new Intent(AfterLogin.this, Login.class);
-                                startActivity(i);
                             }else {
                                 Log.i("error", "ERROR : " + toString());
                                 Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
@@ -115,5 +115,7 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
         };
         Volley.newRequestQueue(AfterLogin.this).add(jsonObjectRequest);
     }
+
+
 
 }

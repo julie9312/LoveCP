@@ -28,7 +28,7 @@
             android:padding="10dp"
             android:fontFamily="@font/geo"
             android:background="#F2F2F2"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/btnSave"

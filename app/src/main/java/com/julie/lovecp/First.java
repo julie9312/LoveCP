@@ -73,7 +73,6 @@ public class First extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(First.this, AfterLogin.class);
                 startActivity(i);
-                finish();
             }
         });
 

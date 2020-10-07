@@ -136,8 +136,6 @@ public class Register extends AppCompatActivity {
                         Volley.newRequestQueue(Register.this).add(request);
                     }
                 });
-
-
                 finishAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
@@ -147,6 +145,7 @@ public class Register extends AppCompatActivity {
                 });
                 finishAlert.setCancelable(false);
                 finishAlert.show();
+                finish();
 
             }
         });

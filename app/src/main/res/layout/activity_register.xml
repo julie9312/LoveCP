@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Register"
-    android:background="#FFFFFF">
+    android:background="#000000">
 
     <TextView
         android:id="@+id/textView"
@@ -16,6 +16,7 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:padding="10dp"
+        android:textColor="#FFFFFF"
         android:text="Love Culture Power"
         android:fontFamily="@font/summer1"
         android:textStyle="bold"

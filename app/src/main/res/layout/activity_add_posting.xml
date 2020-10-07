@@ -6,31 +6,39 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:padding="10dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_weight="3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/editTitle"
-            android:layout_width="287dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPink"
-            android:hint="title"
+            android:layout_weight="7"
+            android:layout_marginRight="5dp"
             android:padding="10dp"
+            android:fontFamily="@font/geo"
+            android:background="#F2F2F2"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="103dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Save"
             android:textSize="10sp"
-            android:textColor="#000000"
+            android:fontFamily="@font/noisywalk"
+            android:textColor="#FFFFFF"
             android:background="@drawable/custom_button"/>
 
     </LinearLayout>
@@ -39,7 +47,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6"
+        android:layout_weight="7"
         android:orientation="vertical">
 
         <EditText
@@ -47,8 +55,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/memo"
+            android:fontFamily="@font/geo"
+            android:background="#E6E6E6"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:inputType="textMultiLine"
+            android:padding="25dp"
             android:maxLines="30"
             android:minLines="1"
             android:textSize="15sp" />

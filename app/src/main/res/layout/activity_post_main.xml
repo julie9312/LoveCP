@@ -6,16 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Post_Main"
-    android:background="@drawable/pinkwall">
+    android:background="#000000">
 
         <Button
             android:id="@+id/btnCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="New Memo"
-            android:textColor="#000000"
+            android:fontFamily="@font/noisywalk"
+            android:textColor="#FFFFFF"
             android:background="@drawable/custom_button"/>
 
 
@@ -24,8 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:layout_weight="7"
-        android:padding="10dp">
+        android:layout_weight="7">
 
     </androidx.recyclerview.widget.RecyclerView>
 

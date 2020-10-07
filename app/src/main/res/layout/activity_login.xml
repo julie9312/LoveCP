@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Login"
-    android:background="@drawable/book">
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/textView"
@@ -15,9 +15,11 @@
         android:layout_gravity="center|center_horizontal|center_vertical"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Login"
+        android:text="Love Culture Power"
+        android:fontFamily="@font/summer1"
         android:layout_margin="20dp"
-        android:textSize="34sp" />
+        android:textStyle="bold"
+        android:textSize="100sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,6 +62,8 @@
             android:id="@+id/checkAutoLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
             android:text="Auto Login" />
 
 
@@ -78,7 +82,8 @@
             android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:text="REGISTER"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noisywalk"
             android:background="@drawable/custom_button"/>
 
         <Button
@@ -87,7 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="LOGIN"
-            android:textColor="#000000"
+            android:fontFamily="@font/noisywalk"
+            android:textColor="#FFFFFF"
             android:background="@drawable/custom_button"/>
     </LinearLayout>
 

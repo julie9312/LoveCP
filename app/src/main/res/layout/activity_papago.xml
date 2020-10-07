@@ -34,7 +34,6 @@
         android:layout_marginRight="150dp"
         android:background="#FFFFFF"
         android:cropToPadding="false"
-        android:scaleType="fitCenter"
         app:srcCompat="@drawable/pen" />
 
     <TextView

@@ -30,5 +30,4 @@
         android:textColor="#FFFFFF"
         android:fontFamily="@font/noisywalk"
         android:background="@drawable/custom_button" />
-
 </LinearLayout>

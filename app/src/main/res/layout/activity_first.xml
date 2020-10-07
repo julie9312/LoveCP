@@ -16,7 +16,6 @@
 
         <Button
             android:id="@+id/btnA"
-            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -28,7 +27,6 @@
 
         <Button
             android:id="@+id/btnB"
-            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -41,7 +39,6 @@
 
         <Button
             android:id="@+id/btnLogout"
-            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

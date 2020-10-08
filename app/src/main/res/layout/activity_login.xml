@@ -24,7 +24,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
@@ -67,6 +67,16 @@
             android:textColor="#FFFFFF"
             android:padding="10dp"
             android:text="Auto Login" />
+
+        <Button
+            android:id="@+id/btnHint"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:background="@color/colorPrimaryDark"
+            android:padding="10dp"
+            android:text="Forgot Passwd"
+            android:textColor="#FFFFFF" />
 
 
     </LinearLayout>

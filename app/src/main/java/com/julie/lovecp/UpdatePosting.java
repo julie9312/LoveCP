@@ -30,8 +30,8 @@ import java.util.Map;
 public class UpdatePosting extends AppCompatActivity {
 
     RequestQueue requestQueue;
-    EditText editTitle;
-    EditText editContent;
+    EditText editTitle2;
+    EditText editContent2;
     Button btnUpdate;
     int id;
 
@@ -55,8 +55,8 @@ public class UpdatePosting extends AppCompatActivity {
 //            path = "/api/v1/posts";
 //        }
 
-        editTitle = findViewById(R.id.editTitle);
-        editContent = findViewById(R.id.editContent);
+        editTitle2 = findViewById(R.id.editTitle2);
+        editContent2 = findViewById(R.id.editContent2);
         btnUpdate = findViewById(R.id.btnUpdate);
 
 
@@ -65,15 +65,15 @@ public class UpdatePosting extends AppCompatActivity {
         String title = getIntent().getStringExtra("title");
         String content = getIntent().getStringExtra("content");
         // 화면에 표시
-        editTitle.setText(title);
-        editContent.setText(content);
+        editTitle2.setText(title);
+        editContent2.setText(content);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String title = editTitle.getText().toString().trim();
-                String content = editContent.getText().toString().trim();
+                String title = editTitle2.getText().toString().trim();
+                String content = editContent2.getText().toString().trim();
 
                 JSONObject body = new JSONObject();
                 try {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:gravity="top"
+    android:layout_gravity="center"
     android:orientation="vertical"
     tools:context=".Papago">
 
@@ -15,13 +15,11 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:layout_marginTop="30dp"
         android:background="#E0F8F7"
         android:hint="Before"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:padding="10dp"
         android:singleLine="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp"
         android:visibility="visible" />
 
@@ -44,9 +42,8 @@
         android:layout_margin="10dp"
         android:background="#7FC382"
         android:hint="After"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:padding="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="16sp" />
 
     <Button
@@ -57,7 +54,6 @@
         android:background="@drawable/custom_button"
         android:fontFamily="@font/noisywalk"
         android:text="Trans"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFFFFF" />
 
 

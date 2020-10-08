@@ -5,61 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     android:background="#000000"
     tools:context=".UpdatePosting">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
         android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="7"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:fontFamily="@font/geo"
+            android:background="#F2F2F2"
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/btnUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:text="Update"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"
+            android:textSize="10sp"
             android:fontFamily="@font/noisywalk"
+            android:textColor="#FFFFFF"
             android:background="@drawable/custom_button"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:layout_margin="10dp"
+        android:layout_height="500dp"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="#F2F2F2"
-            android:hint="title"
-            android:fontFamily="@font/geo"
-            android:padding="10dp"
-            android:textSize="26sp" />
-
-        <EditText
-            android:id="@+id/editContent"
+            android:id="@+id/editContent2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:background="#E6E6E6"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:hint="content"
             android:fontFamily="@font/geo"
             android:inputType="textMultiLine"
+            android:minLines="1"
             android:maxLines="30"
-            android:padding="20dp"
             android:textSize="15sp" />
 
 

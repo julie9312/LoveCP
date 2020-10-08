@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Register"
+    tools:context=".Login"
     android:background="#000000">
+
+
 
     <TextView
         android:id="@+id/textView"
@@ -18,19 +20,21 @@
         android:textColor="#FFFFFF"
         android:text="Love Culture Power"
         android:fontFamily="@font/summer1"
+        android:layout_margin="20dp"
         android:textStyle="bold"
-        android:textSize="100sp" />
+        android:textSize="100sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editEmail"
+            android:id="@+id/editEmail3"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
@@ -40,11 +44,24 @@
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_email_icon"
             android:drawablePadding="12dp"
-            android:hint="Email Address"
+            android:hint="Email"
             android:inputType="textEmailAddress" />
 
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@android:drawable/btn_star_big_on"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="가장 감명깊게 읽은 책 이름" />
+
         <EditText
-            android:id="@+id/editPasswd1"
+            android:id="@+id/editPasswdHint2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
@@ -54,52 +71,28 @@
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_lock_icon"
             android:drawablePadding="12dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="Answer"
+            android:inputType="textMultiLine" />
 
-        <EditText
-            android:id="@+id/editPasswd2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:hint="Confirm Password"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:background="@drawable/custom_input"
-            android:drawableStart="@drawable/custom_lock_icon"
-            android:drawablePadding="12dp"
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/editPasswdHint"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_input"
-            android:drawableStart="@android:drawable/btn_star_big_on"
-            android:drawablePadding="12dp"
-            android:hint="감명깊게 읽은 책 이름"
-            android:inputType="textPassword"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_marginTop="10dp"
+        android:padding="20dp">
 
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnLoginHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:text="SIGN IN"
-            android:textColor="#FFFFFF"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="LOGIN"
             android:fontFamily="@font/noisywalk"
+            android:textColor="#FFFFFF"
             android:background="@drawable/custom_button"/>
     </LinearLayout>
+
 </LinearLayout>

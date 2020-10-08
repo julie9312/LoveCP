@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
     EditText editPasswd;
     Button btnRegister;
     Button btnLogin;
+    Button btnHint;
     CheckBox checkAutoLogin;
 
     Intent i;
@@ -52,12 +53,22 @@ public class Login extends AppCompatActivity {
         editPasswd = findViewById(R.id.editPasswd);
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
+        btnHint = findViewById(R.id.btnHint);
         checkAutoLogin = findViewById(R.id.checkAutoLogin);
 
         sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
         editor = sp.edit();
         savedEmail = sp.getString("email", null);
         savedPassed = sp.getString("passwd", null);
+
+        btnHint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this, PasswdHint.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         requestQueue = Volley.newRequestQueue(Login.this);
 

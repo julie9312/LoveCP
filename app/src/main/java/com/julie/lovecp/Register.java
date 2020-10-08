@@ -33,6 +33,7 @@ public class Register extends AppCompatActivity {
     EditText editEmail;
     EditText editPasswd1;
     EditText editPasswd2;
+    EditText editPasswdHint;
     Button btnRegister;
 
     RequestQueue requestQueue;
@@ -49,6 +50,7 @@ public class Register extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         editPasswd1 = findViewById(R.id.editPasswd1);
         editPasswd2 = findViewById(R.id.editPasswd2);
+        editPasswdHint = findViewById(R.id.editPasswdHint);
         btnRegister = findViewById(R.id.btnRegister);
 
         requestQueue = Volley.newRequestQueue(Register.this);
@@ -60,6 +62,7 @@ public class Register extends AppCompatActivity {
                 String email = editEmail.getText().toString().trim();
                 String passwd = editPasswd1.getText().toString().trim();
                 String passwd2 = editPasswd2.getText().toString().trim();
+                String passwd_hint = editPasswdHint.getText().toString().trim();
 
                 if (email.isEmpty()) {
                     Toast.makeText(Register.this, "이메일 입력은 필수입니다", Toast.LENGTH_SHORT).show();
@@ -85,10 +88,17 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                if (passwd_hint.isEmpty()) {
+                    Toast.makeText(Register.this, "힌트는 필수로 입력하셔야 합니다.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 final JSONObject body = new JSONObject();
                 try {
                     body.put("email", email);
                     body.put("passwd", passwd);
+                    body.put("passwd_hint", passwd_hint);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

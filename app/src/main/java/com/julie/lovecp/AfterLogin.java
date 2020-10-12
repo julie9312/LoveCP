@@ -28,12 +28,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AfterLogin extends AppCompatActivity implements View.OnClickListener{
+public class AfterLogin extends AppCompatActivity {
 
     TextView txtValue;
     Button btnLogout2;
     String token;
-    String query = "";
     RequestQueue requestQueue;
 
     @Override
@@ -50,72 +49,63 @@ public class AfterLogin extends AppCompatActivity implements View.OnClickListene
 
         requestQueue = Volley.newRequestQueue(AfterLogin.this);
 
-        btnLogout2.setOnClickListener(this);
-    }
+        btnLogout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    @Override
-    public void onClick(View v) {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE,
+                        Utils.BASE_URL + "/api/v1/users/logout",
+                        null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
 
-        if(v == btnLogout2){
-            Log.i("로그아웃", "버튼클릭 : 로그아웃");
-            logoutRequest(Request.Method.DELETE, "/api/v1/users/logout", null);
-        }
+                                try {
+                                    boolean success = response.getBoolean("success");
 
-    }
-    public void logoutRequest(int method, final String api_url, JSONObject object) {
-        JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(method, Utils.BASE_URL + api_url + query, object,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                                    if(success){
+                                        SharedPreferences preferences = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("token", null);
+                                        editor.apply();
+                                        Intent i = new Intent(AfterLogin.this, Login.class);
+                                        startActivity(i);
+                                        finish();
 
-                        Log.i("response",Utils.BASE_URL + api_url + query);
+                                    }else{
+                                        Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
+                                        return;
 
-//                        String token = response.getString("token");
-//                        String user_id = response.getString("user_id");
-
-                        try {
-                            boolean success = response.getBoolean("success");
-                            if(success){
-
-                            SharedPreferences preferences = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putString("token", null);
-                            editor.apply();
-                            Intent i = new Intent(AfterLogin.this, Login.class);
-                            startActivity(i);
-                            finish();
-
-                            }else {
-                                Log.i("error", "ERROR : " + toString());
-                                Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
-                                return;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                Toast.makeText(AfterLogin.this,"로그아웃실패2", Toast.LENGTH_SHORT).show();
+                                Log.i("error2", "ERROR : " + error.toString());
+                                return;
+
+                            }
                         }
-
-                    }
-                },
-                new Response.ErrorListener() {
+                ){
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(AfterLogin.this,"로그아웃실패2", Toast.LENGTH_SHORT).show();
-                        Log.i("error2", "ERROR : " + error.toString());
-                        return;
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("Authorization", "Bearer "+token);
+                        return params;
                     }
-                }
-        ){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "Bearer "+token);
-                return params;
+                };
+
+                Volley.newRequestQueue(AfterLogin.this).add(request);
+
             }
-        };
-        Volley.newRequestQueue(AfterLogin.this).add(jsonObjectRequest);
+        });
     }
-
-
-
 }

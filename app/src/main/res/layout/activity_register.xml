@@ -79,7 +79,7 @@
             android:drawableStart="@android:drawable/btn_star_big_on"
             android:drawablePadding="12dp"
             android:hint="감명깊게 읽은 책 이름"
-            android:inputType="textPassword"
+            android:inputType="textMultiLine"
             android:paddingStart="12dp"
             android:paddingEnd="12dp" />
     </LinearLayout>

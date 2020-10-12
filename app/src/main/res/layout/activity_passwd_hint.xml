@@ -38,14 +38,14 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:ems="10"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/custom_email_icon"
             android:drawablePadding="12dp"
+            android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
 
         <TextView
             android:id="@+id/txtQuestion"
@@ -54,25 +54,27 @@
             android:layout_margin="10dp"
             android:background="@drawable/custom_input"
             android:drawableStart="@android:drawable/btn_star_big_on"
+            android:gravity="center"
             android:paddingStart="5dp"
             android:paddingEnd="0dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:text="가장 감명깊게 읽은 책 이름" />
+            android:text="가장 감명깊게 읽은 책 이름"
+            android:textSize="20sp" />
+
 
         <EditText
             android:id="@+id/editPasswdHint2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:ems="10"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
             android:background="@drawable/custom_input"
-            android:drawableStart="@drawable/custom_lock_icon"
+            android:drawableStart="@android:drawable/presence_online"
             android:drawablePadding="12dp"
+            android:ems="10"
             android:hint="Answer"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
+
 
     </LinearLayout>
 
@@ -89,7 +91,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="LOGIN"
+            android:text="Click"
             android:fontFamily="@font/noisywalk"
             android:textColor="#FFFFFF"
             android:background="@drawable/custom_button"/>

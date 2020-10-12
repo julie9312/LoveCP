@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity {
     Intent i;
 
     String savedEmail;
-    String savedPassed;
+    String savedPasswd;
     // 쉐어드 프리퍼런스를 멤버변수로 뺀다.
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity {
         sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
         editor = sp.edit();
         savedEmail = sp.getString("email", null);
-        savedPassed = sp.getString("passwd", null);
+        savedPasswd = sp.getString("passwd", null);
 
         btnHint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,25 +79,25 @@ public class Login extends AppCompatActivity {
                 String email = editEmail.getText().toString().trim();
                 String passwd = editPasswd.getText().toString().trim();
 
-                if(email.contains("@") == false){
+                if (email.contains("@") == false) {
                     Toast.makeText(Login.this, "형식에 맞지 않습니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(passwd.isEmpty() || passwd.length() < 4 || passwd.length() >12){
+                if (passwd.isEmpty() || passwd.length() < 4 || passwd.length() > 12) {
                     Toast.makeText(Login.this, "비밀번호가 형식에 맞지 않습니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(savedEmail != null && savedPassed != null &&
-                        savedEmail.equals(email) && savedPassed.equals(passwd)) {
+                if (savedEmail != null && savedPasswd != null &&
+                        savedEmail.equals(email) && savedPasswd.equals(passwd)) {
                     Toast.makeText(Login.this, "가입된 정보가 없습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 JSONObject body = new JSONObject();
 
-                try{
+                try {
                     body.put("email", email);
                     body.put("passwd", passwd);
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -129,25 +129,41 @@ public class Login extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(Login.this, "가입된 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+
+                                return;
 
                             }
                         }
                 );
                 Volley.newRequestQueue(Login.this).add(request);
 
-                if(checkAutoLogin.isChecked()){
-
+                if (checkAutoLogin.isChecked()) {
                     editor.putBoolean("auto_login", true);
-                }else{
-
+                } else {
                     editor.putBoolean("auto_login", false);
                 }
                 editor.apply();
+
+                //1. 자동로그인이 쉐어드프리퍼런스에 저장되어 있는지 정보 확인.
+                boolean autoLogin = sp.getBoolean("auto_login", false);
+                //2. 자동로그인이 true 로 되어있으면 token 이 있음.
+                //3. 체크박스에도 체크표시
+                if (autoLogin == true) {
+                    editEmail.setText(savedEmail);
+                    editPasswd.setText(savedPasswd);
+                    checkAutoLogin.setChecked(true);
+                } else {
+                    return;
+
+                }
 
                 Intent i = new Intent(Login.this, First.class);
                 startActivity(i);
                 finish();
             }
+
+
 
         });
 
@@ -160,15 +176,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        //1. 자동로그인이 쉐어드프리퍼런스에 저장되어 있는지 정보 확인.
-        boolean autoLogin = sp.getBoolean("auto_login", false);
-        //2. 자동로그인이 true 로 되어있으면 token 이 있음.
-        //3. 체크박스에도 체크표시
-        if(autoLogin == true){
-            editEmail.setText(savedEmail);
-            editPasswd.setText(savedPassed);
-            checkAutoLogin.setChecked(true);
-        }
+
 
     }
 }

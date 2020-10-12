@@ -30,12 +30,8 @@ public class PasswdHint extends AppCompatActivity {
     EditText editEmail3;
     EditText editPasswdHint2;
     Button btnLoginHint;
-
-    String savedEmail;
     String newPasswd;
-
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
+    String passwd_hint;
 
     RequestQueue requestQueue;
 
@@ -52,11 +48,9 @@ public class PasswdHint extends AppCompatActivity {
         editPasswdHint2 = findViewById(R.id.editPasswdHint2);
         btnLoginHint = findViewById(R.id.btnLoginHint);
 
-        sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
-        editor = sp.edit();
-        savedEmail = sp.getString("email", null);
-        newPasswd = sp.getString("newPasswd", null);
-
+        SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+        newPasswd = sp.getString("passwd", null);
+        passwd_hint = sp.getString("passwd_hint", null);
 
         btnLoginHint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,11 +62,11 @@ public class PasswdHint extends AppCompatActivity {
                 if(savedemail != null && savedemail.equals(editEmail3)){
                     Toast.makeText(PasswdHint.this, "가입된정보가 없습니다.",
                             Toast.LENGTH_SHORT).show();
-                    Log.i("AAA", savedemail);
+                    Log.i("email", savedemail);
                     return;
                 }
 
-                if(passwd_hint.equalsIgnoreCase(passwd_hint) == false){
+                if(passwd_hint.equals(passwd_hint) == false){
                     Toast.makeText(PasswdHint.this, "정답이 일치 하지 않습니다.",
                             Toast.LENGTH_SHORT).show();
                     return;
@@ -86,45 +80,46 @@ public class PasswdHint extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, Utils.BASE_URL + "/api/v1/users", body,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                try {
+                                    boolean success = response.getBoolean("success");
+                                    if(success) {
+                                        String passwd = response.getString("passwd");
+                                        SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sp.edit();
+                                        editor.putString("passwd", passwd);
+                                        editor.apply();
+                                    } else {
+                                        Log.i("error", "ERROR : " + toString());
+                                        Toast.makeText(PasswdHint.this, "비밀번호 찾기 실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                    return;
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.i("test",error+"");
+                            }
+                        }
+                );
+                Volley.newRequestQueue(PasswdHint.this).add(request);
+
 
                 AlertDialog.Builder finishAlert = new AlertDialog.Builder(PasswdHint.this);
                 finishAlert.setTitle("정답이 일치 합니다");
-                finishAlert.setMessage("새로운비번은 :");
+                finishAlert.setMessage("새로운비번은 :"+ newPasswd);
                 finishAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-
-                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, Utils.BASE_URL + "/api/v1/users", body,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-
-                                        try {
-                                            String passwd = response.getString("newPasswd");
-                                            Log.i("tata", newPasswd);
-                                            SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME,MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = sp.edit();
-                                            editor.putString("newPasswd", passwd);
-                                            editor.apply();
-
-                                            finish();
-                                            return;
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        Log.i("AAA", newPasswd);
-
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Log.i("test",error+"");
-                                    }
-                                }
-                        );
-                        Volley.newRequestQueue(PasswdHint.this).add(request);
 
                         Intent i = new Intent(PasswdHint.this, Login.class);
                         startActivity(i);
@@ -135,14 +130,12 @@ public class PasswdHint extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface  dialogInterface, int which) {
                         Toast.makeText(PasswdHint.this, "취소하였습니다", Toast.LENGTH_SHORT).show();
-
                     }
                 });
                 finishAlert.setCancelable(false);
                 finishAlert.show();
             }
         });
-
 
     }
 }

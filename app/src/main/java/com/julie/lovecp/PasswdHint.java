@@ -35,6 +35,8 @@ public class PasswdHint extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
+    String recievedPasswd = "";
+
     AlertDialog.Builder finishAlert;
 
     @Override
@@ -66,12 +68,6 @@ public class PasswdHint extends AppCompatActivity {
                     return;
                 }
 
-                if(passwd_hint.equals(passwd_hint) == false){
-                    Toast.makeText(PasswdHint.this, "정답이 일치 하지 않습니다.",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 JSONObject body = new JSONObject();
                 try {
                     body.put("email", savedemail);
@@ -87,12 +83,36 @@ public class PasswdHint extends AppCompatActivity {
 
                                 try {
                                     boolean success = response.getBoolean("success");
+                                    Log.i("AAA",response.toString());
                                     if(success) {
-                                        String passwd = response.getString("passwd");
+                                        recievedPasswd = response.getString("passwd");
                                         SharedPreferences sp = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
-                                        editor.putString("passwd", passwd);
+                                        editor.putString("passwd", recievedPasswd);
                                         editor.apply();
+
+                                        AlertDialog.Builder finishAlert = new AlertDialog.Builder(PasswdHint.this);
+                                        finishAlert.setTitle("정답이 일치 합니다");
+                                        finishAlert.setMessage("새로운비번은 :"+ recievedPasswd);
+                                        finishAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int which) {
+
+                                                Intent i = new Intent(PasswdHint.this, Login.class);
+                                                startActivity(i);
+
+                                            }
+                                        });
+                                        finishAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface  dialogInterface, int which) {
+                                                Toast.makeText(PasswdHint.this, "취소하였습니다", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        finishAlert.setCancelable(false);
+                                        finishAlert.show();
+
+
                                     } else {
                                         Log.i("error", "ERROR : " + toString());
                                         Toast.makeText(PasswdHint.this, "비밀번호 찾기 실패", Toast.LENGTH_SHORT).show();
@@ -107,33 +127,15 @@ public class PasswdHint extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.i("test",error+"");
+                                Log.i("error", "ERROR : " + toString());
+                                Toast.makeText(PasswdHint.this, "비밀번호 찾기 실패", Toast.LENGTH_SHORT).show();
                             }
                         }
                 );
                 Volley.newRequestQueue(PasswdHint.this).add(request);
 
 
-                AlertDialog.Builder finishAlert = new AlertDialog.Builder(PasswdHint.this);
-                finishAlert.setTitle("정답이 일치 합니다");
-                finishAlert.setMessage("새로운비번은 :"+ newPasswd);
-                finishAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
 
-                        Intent i = new Intent(PasswdHint.this, Login.class);
-                        startActivity(i);
-
-                    }
-                });
-                finishAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface  dialogInterface, int which) {
-                        Toast.makeText(PasswdHint.this, "취소하였습니다", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                finishAlert.setCancelable(false);
-                finishAlert.show();
             }
         });
 

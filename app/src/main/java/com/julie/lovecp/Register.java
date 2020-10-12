@@ -38,10 +38,6 @@ public class Register extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
-    private String token;
-    private AlertDialog.Builder finishAlert;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +90,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                final JSONObject body = new JSONObject();
+                JSONObject body = new JSONObject();
                 try {
                     body.put("email", email);
                     body.put("passwd", passwd);

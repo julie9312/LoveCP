@@ -54,50 +54,44 @@ public class AfterLogin extends AppCompatActivity {
             public void onClick(View view) {
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE,
-                        Utils.BASE_URL + "/api/v1/users/logout",
-                        null,
+                        Utils.BASE_URL + "/api/v1/users/logout", null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-
-                                try {
-                                    boolean success = response.getBoolean("success");
-
-                                    if(success){
+                                Log.i("ZZZ", response.toString());
+//                                try {
+//                                    boolean success = response.getBoolean("success");
+//                                    if(success){
                                         SharedPreferences preferences = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putString("token", null);
                                         editor.apply();
                                         Intent i = new Intent(AfterLogin.this, Login.class);
-                                        startActivity(i);
                                         finish();
-
-                                    }else{
-                                        Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
-                                        return;
-
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                        startActivity(i);
+//                                    }else{
+//                                        Log.i("error", "ERROR : " + toString());
+//                                        Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
+//
+//                                    }
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
                             }
-
 
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-
+                                Log.i("error", "ERROR : " + error.toString());
                                 Toast.makeText(AfterLogin.this,"로그아웃실패2", Toast.LENGTH_SHORT).show();
-                                Log.i("error2", "ERROR : " + error.toString());
-                                return;
-
                             }
                         }
                 ){
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
                         Map<String, String> params = new HashMap<>();
+                        String token = sp.getString("token", null);
                         params.put("Authorization", "Bearer "+token);
                         return params;
                     }

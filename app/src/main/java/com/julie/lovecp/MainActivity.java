@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+// 자동로그인 1 sp 저장한게 이리로 오게 하는거
         btnRegister = findViewById(R.id.btnRegister);
         btnStart = findViewById(R.id.btnStart);
 

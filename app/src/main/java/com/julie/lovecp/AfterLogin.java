@@ -59,24 +59,16 @@ public class AfterLogin extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.i("ZZZ", response.toString());
-//                                try {
-//                                    boolean success = response.getBoolean("success");
-//                                    if(success){
+
                                         SharedPreferences preferences = getSharedPreferences(Utils.PREFERENCES_NAME, MODE_PRIVATE);
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putString("token", null);
                                         editor.apply();
                                         Intent i = new Intent(AfterLogin.this, Login.class);
-                                        finish();
                                         startActivity(i);
-//                                    }else{
-//                                        Log.i("error", "ERROR : " + toString());
-//                                        Toast.makeText(AfterLogin.this, "로그아웃 실패", Toast.LENGTH_SHORT).show();
-//
-//                                    }
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
+                                        finish();
+
+
                             }
 
                         },

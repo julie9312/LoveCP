@@ -109,6 +109,8 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
 
+                                Log.i("A", "email");
+
                                 try {
                                     String token = response.getString("token");
                                     Log.i("tata", token);
@@ -117,6 +119,8 @@ public class Login extends AppCompatActivity {
                                     editor.putString("token", token);
                                     editor.apply();
 
+                                    Intent i = new Intent(Login.this, First.class);
+                                    startActivity(i);
                                     finish();
                                     return;
 
@@ -129,6 +133,9 @@ public class Login extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                Log.i("e", "error: "+error);
+                                Toast.makeText(Login.this, "가입된 정보가 없습니다.", Toast.LENGTH_SHORT).show();
+                                return;
 
                             }
                         }
@@ -138,15 +145,14 @@ public class Login extends AppCompatActivity {
                 if(checkAutoLogin.isChecked()){
 
                     editor.putBoolean("auto_login", true);
+                    editor.apply();
                 }else{
 
                     editor.putBoolean("auto_login", false);
+                    editor.apply();
                 }
-                editor.apply();
 
-                Intent i = new Intent(Login.this, First.class);
-                startActivity(i);
-                finish();
+
             }
 
         });

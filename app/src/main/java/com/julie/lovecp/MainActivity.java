@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-// 자동로그인 1 sp 저장한게 이리로 오게 하는거
+
+
         btnRegister = findViewById(R.id.btnRegister);
         btnStart = findViewById(R.id.btnStart);
 
         requestQueue = Volley.newRequestQueue(MainActivity.this);
 
+        // 자동로그인 1 sp 저장한게 이리로 오게 하는거
         SharedPreferences sp = getSharedPreferences("lcpapp", MODE_PRIVATE);
         token = sp.getString("token", null);
         if(token != null){

@@ -12,15 +12,19 @@
     <EditText
         android:id="@+id/editBefore"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:background="#E0F8F7"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:hint="Before"
         android:inputType="textMultiLine"
+        android:background="@drawable/custom_input"
         android:padding="10dp"
+        android:rotationX="3"
         android:singleLine="false"
         android:textSize="16sp"
+        android:textStyle="normal"
         android:visibility="visible" />
 
 
@@ -30,20 +34,23 @@
         android:layout_height="50dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
-        android:background="#FFFFFF"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#000000"
         android:cropToPadding="false"
-        app:srcCompat="@drawable/pen" />
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
     <TextView
         android:id="@+id/txtAfter"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:background="#7FC382"
+        android:background="@drawable/custom_input"
         android:hint="After"
         android:inputType="textMultiLine"
         android:padding="10dp"
+        android:rotationX="3"
         android:textSize="16sp" />
 
     <Button

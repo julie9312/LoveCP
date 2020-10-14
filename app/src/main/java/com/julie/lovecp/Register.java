@@ -100,6 +100,16 @@ public class Register extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 AlertDialog.Builder finishAlert = new AlertDialog.Builder(Register.this);
+
+//                View alertView = getLayoutInflater().inflate(R.layout."내가 만드 xml",null); TODO
+//
+//                finishAlert.setView(alertView);
+
+//                AlertDialog dialog = finishAlert.create();
+////                dialog.cancel();
+////                dialog.show();
+////                dialog.setCancelable();
+
                 finishAlert.setTitle("회원가입완료");
                 finishAlert.setMessage("완료하시겠습니까?");
                 finishAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {

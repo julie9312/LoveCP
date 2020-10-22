@@ -3,7 +3,6 @@
 
     <style name="Theme.App" parent="Theme.MaterialComponents">
         <item name="windowActionModeOverlay">true</item>
-        <item name="actionModeCloseDrawable">@drawable/icon</item>
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
     </style>
 
